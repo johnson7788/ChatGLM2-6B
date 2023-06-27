@@ -2,8 +2,11 @@ from transformers import AutoModel, AutoTokenizer
 import gradio as gr
 import mdtex2html
 
-tokenizer = AutoTokenizer.from_pretrained("THUDM/chatglm2-6b", trust_remote_code=True)
-model = AutoModel.from_pretrained("THUDM/chatglm2-6b", trust_remote_code=True).cuda()
+# model_dir = "/Users/admin/model/chatglm2-6b"
+model_dir = "/home/wac/johnson/project/model/THUDM/chatglm2-6b"
+# model_dir = "THUDM/chatglm2-6b"
+tokenizer = AutoTokenizer.from_pretrained(model_dir, trust_remote_code=True)
+model = AutoModel.from_pretrained(model_dir, trust_remote_code=True).cuda()
 model = model.eval()
 
 """Override Chatbot.postprocess"""
@@ -101,4 +104,4 @@ with gr.Blocks() as demo:
 
     emptyBtn.click(reset_state, outputs=[chatbot, history, past_key_values], show_progress=True)
 
-demo.queue().launch(share=False, inbrowser=True)
+demo.queue().launch(share=True, inbrowser=True, server_name="0.0.0.0")
