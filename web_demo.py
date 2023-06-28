@@ -1,3 +1,4 @@
+import os
 from transformers import AutoModel, AutoTokenizer
 import gradio as gr
 import mdtex2html
@@ -5,6 +6,7 @@ import mdtex2html
 # model_dir = "/Users/admin/model/chatglm2-6b"
 model_dir = "/home/wac/johnson/project/model/THUDM/chatglm2-6b"
 # model_dir = "THUDM/chatglm2-6b"
+# assert os.path.exists(model_dir), "Please download the model first!"
 tokenizer = AutoTokenizer.from_pretrained(model_dir, trust_remote_code=True)
 model = AutoModel.from_pretrained(model_dir, trust_remote_code=True).cuda()
 model = model.eval()
